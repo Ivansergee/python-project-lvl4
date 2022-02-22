@@ -3,31 +3,31 @@
 {% load bootstrap4 %}
 
 {% block content %}
-<h1>{% translation 'Пользователи' %}</h1>
+<h1>{% translate 'Пользователи' %}</h1>
 <table class="table table-striped">
     <thead>
       <tr>
-        <th>{% translation 'ID' %}</th>
-        <th>{% translation 'Имя пользователя'%}</th>
-        <th>{% translation 'Полное имя'%}</th>
-        <th>{% translation 'Дата создания'%}</th>
+        <th>{% translate 'ID' %}</th>
+        <th>{% translate 'Имя пользователя'%}</th>
+        <th>{% translate 'Полное имя'%}</th>
+        <th>{% translate 'Дата создания'%}</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      
+        {% for user in users %}
         <tr>
-          <td>38</td>
-          <td>321</td>
-          <td>321 321</td>
-          <td>01.03.2021 06:03</td>
+          <td>{{ user.pk }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.first_name }} {{ user.last_name }}</td>
+          <td>{{ user.created_at }}</td>
           <td>
-            <a href="/users/38/update/">Изменить</a>
+            <a href="{% url 'change_user' user.pk %}">Изменить</a>
             <br>
-            <a href="/users/38/delete/">Удалить</a>
+            <a href="{% url 'delete_user' user.pk %}">Удалить</a>
           </td>
         </tr>
-      
+        {% endfor %}
     </tbody>
   </table>
 {% endblock %}
