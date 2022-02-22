@@ -1,0 +1,17 @@
+{% extends 'tasks/base.html' %}
+{% load i18n %}
+{% load bootstrap4 %}
+
+{% block content %}
+{% bootstrap_messages %}
+<h1 class="my-4">{% translate "Регистрация" %}</h1>
+<form method="post" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+      <button type="submit" class="btn btn-primary">
+        {% translate "Зарегистрировать" %}
+      </button>
+    {% endbuttons %}
+</form>
+{% endblock %}

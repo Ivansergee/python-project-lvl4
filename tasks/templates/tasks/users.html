@@ -1,0 +1,33 @@
+{% extends 'tasks/base.html' %}
+{% load i18n %}
+{% load bootstrap4 %}
+
+{% block content %}
+<h1>{% translation 'Пользователи' %}</h1>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>{% translation 'ID' %}</th>
+        <th>{% translation 'Имя пользователя'%}</th>
+        <th>{% translation 'Полное имя'%}</th>
+        <th>{% translation 'Дата создания'%}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+          <td>38</td>
+          <td>321</td>
+          <td>321 321</td>
+          <td>01.03.2021 06:03</td>
+          <td>
+            <a href="/users/38/update/">Изменить</a>
+            <br>
+            <a href="/users/38/delete/">Удалить</a>
+          </td>
+        </tr>
+      
+    </tbody>
+  </table>
+{% endblock %}
