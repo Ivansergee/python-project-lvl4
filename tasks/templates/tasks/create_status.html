@@ -1,0 +1,17 @@
+{% extends 'tasks/base.html' %}
+{% load i18n %}
+{% load bootstrap4 %}
+
+{% block content %}
+{% bootstrap_messages %}
+<h1 class="my-4">{% translate "Создать статус" %}</h1>
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+      <button type="submit" class="btn btn-primary">
+        {% translate "Создать" %}
+      </button>
+    {% endbuttons %}
+</form>
+{% endblock %}

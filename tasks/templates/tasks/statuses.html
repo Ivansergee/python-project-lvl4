@@ -1,0 +1,33 @@
+{% extends 'tasks/base.html' %}
+{% load i18n %}
+{% load bootstrap4 %}
+
+{% block content %}
+{% bootstrap_messages %}
+<h1>{% translate 'Статусы' %}</h1>
+<a class="nav-link" href="{% url 'create_status' %}">{% translate 'Создать статус' %}</a>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>{% translate 'ID' %}</th>
+        <th>{% translate 'Имя'%}</th>
+        <th>{% translate 'Дата создания'%}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for status in statuses %}
+        <tr>
+          <td>{{ status.pk }}</td>
+          <td>{{ status.name }}</td>
+          <td>{{ status.created_at }}</td>
+          <td>
+            <a href="{% url 'change_status' status.pk %}">{% translate 'Изменить' %}</a>
+            <br>
+            <a href="{% url 'delete_status' status.pk %}">{% translate 'Удалить' %}</a>
+          </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

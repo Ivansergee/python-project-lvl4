@@ -7,8 +7,8 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import gettext_lazy as _
 
-from .models import User
-from .forms import UserRegisterForm
+from .models import User, Status
+from .forms import UserRegisterForm, StatusCreationForm
 
 
 class IndexView(TemplateView):
@@ -72,3 +72,47 @@ class UsersListView(ListView):
     template_name = 'tasks/users.html'
     model = User
     context_object_name = 'users'
+
+
+class StatusesListView(LoginRequiredMixin, ListView):
+    template_name = 'tasks/statuses.html'
+    model = Status
+    context_object_name = 'statuses'
+
+    def handle_no_permission(self):
+        messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
+        return redirect('login')
+
+
+class CreateStatusView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    success_url = reverse_lazy('statuses_list')
+    template_name = 'tasks/create_status.html'
+    form_class = StatusCreationForm
+    success_message = _('Статус успешно создан')
+
+    def handle_no_permission(self):
+        messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
+        return redirect('login')
+
+
+class UpdateStatusView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Status
+    success_url = reverse_lazy('statuses_list')
+    template_name = 'tasks/update_status.html'
+    form_class = StatusCreationForm
+    success_message = _('Статус успешно изменен')
+    
+    def handle_no_permission(self):
+        messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
+        return redirect('login')
+
+
+class DeleteStatusView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = Status
+    success_url = reverse_lazy('statuses_list')
+    template_name = 'tasks/delete_status.html'
+    success_message = _('Статус успешно удален')
+    
+    def handle_no_permission(self):
+        messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
+        return redirect('login')

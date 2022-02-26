@@ -23,9 +23,9 @@
           <td>{{ user.first_name }} {{ user.last_name }}</td>
           <td>{{ user.created_at }}</td>
           <td>
-            <a href="{% url 'change_user' user.pk %}">Изменить</a>
+            <a href="{% url 'change_user' user.pk %}">{% translate 'Изменить' %}</a>
             <br>
-            <a href="{% url 'delete_user' user.pk %}">Удалить</a>
+            <a href="{% url 'delete_user' user.pk %}">{% translate 'Удалить' %}</a>
           </td>
         </tr>
         {% endfor %}
