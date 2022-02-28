@@ -17,4 +17,10 @@ urlpatterns = [
     path('statuses/create/', views.CreateStatusView.as_view(), name='create_status'),
     path('statuses/<int:pk>/update/', views.UpdateStatusView.as_view(), name='change_status'),
     path('statuses/<int:pk>/delete/', views.DeleteStatusView.as_view(), name='delete_status'),
+
+    path('tasks/', views.TasksListView.as_view(), name='tasks_list'),
+    path('tasks/create/', views.CreateTaskView.as_view(), name='create_task'),
+    path('tasks/<int:pk>/update/', views.UpdateTaskView.as_view(), name='change_task'),
+    path('tasks/<int:pk>/delete/', views.DeleteStatusView.as_view(), name='delete_task'),
+    path('tasks/<int:pk>', views.StatusesListView.as_view(), name='task'),
 ]

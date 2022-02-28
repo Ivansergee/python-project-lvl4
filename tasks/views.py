@@ -17,7 +17,7 @@ class IndexView(TemplateView):
 
 class CreateUserView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('login')
-    template_name = 'tasks/register.html'
+    template_name = 'tasks/users/register.html'
     form_class = UserRegisterForm
     success_message = _('Пользователь успешно зарегистрирован')
 
@@ -25,7 +25,7 @@ class CreateUserView(SuccessMessageMixin, CreateView):
 class UpdateUserView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, UpdateView):
     model = User
     success_url = reverse_lazy('users_list')
-    template_name = 'tasks/update.html'
+    template_name = 'tasks/users/update.html'
     form_class = UserRegisterForm
     success_message = _('Пользователь успешно изменен')
     login_url = reverse_lazy('login')
@@ -42,7 +42,7 @@ class UpdateUserView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
 class DeleteUserView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
     model = User
     success_url = reverse_lazy('users_list')
-    template_name = 'tasks/delete.html'
+    template_name = 'tasks/users/delete.html'
     success_message = _('Пользователь успешно удален')
     login_url = reverse_lazy('login')
     redirect_field_name = None
@@ -56,7 +56,7 @@ class DeleteUserView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
 
 
 class LoginUserView(SuccessMessageMixin, LoginView):
-    template_name='tasks/login.html'
+    template_name='tasks/users/login.html'
     success_message = _('Вы залогинены')
 
 
@@ -69,13 +69,13 @@ class LogoutUserView(LogoutView):
 
 
 class UsersListView(ListView):
-    template_name = 'tasks/users.html'
+    template_name = 'tasks/users/users.html'
     model = User
     context_object_name = 'users'
 
 
 class StatusesListView(LoginRequiredMixin, ListView):
-    template_name = 'tasks/statuses.html'
+    template_name = 'tasks/statuses/statuses.html'
     model = Status
     context_object_name = 'statuses'
 
@@ -86,7 +86,7 @@ class StatusesListView(LoginRequiredMixin, ListView):
 
 class CreateStatusView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('statuses_list')
-    template_name = 'tasks/create_status.html'
+    template_name = 'tasks/statuses/create_status.html'
     form_class = StatusCreationForm
     success_message = _('Статус успешно создан')
 
@@ -98,7 +98,7 @@ class CreateStatusView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class UpdateStatusView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Status
     success_url = reverse_lazy('statuses_list')
-    template_name = 'tasks/update_status.html'
+    template_name = 'tasks/statuses/update_status.html'
     form_class = StatusCreationForm
     success_message = _('Статус успешно изменен')
     
@@ -110,7 +110,7 @@ class UpdateStatusView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 class DeleteStatusView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Status
     success_url = reverse_lazy('statuses_list')
-    template_name = 'tasks/delete_status.html'
+    template_name = 'tasks/statuses/delete_status.html'
     success_message = _('Статус успешно удален')
     
     def handle_no_permission(self):
