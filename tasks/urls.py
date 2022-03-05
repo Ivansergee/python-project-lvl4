@@ -18,9 +18,14 @@ urlpatterns = [
     path('statuses/<int:pk>/update/', views.UpdateStatusView.as_view(), name='change_status'),
     path('statuses/<int:pk>/delete/', views.DeleteStatusView.as_view(), name='delete_status'),
 
+    path('labels/', views.LabelsListView.as_view(), name='labels_list'),
+    path('labels/create/', views.CreateLabelView.as_view(), name='create_label'),
+    path('labels/<int:pk>/update/', views.UpdateLabelView.as_view(), name='change_label'),
+    path('labels/<int:pk>/delete/', views.DeleteLabelView.as_view(), name='delete_label'),
+
     path('tasks/', views.TasksListView.as_view(), name='tasks_list'),
     path('tasks/create/', views.CreateTaskView.as_view(), name='create_task'),
     path('tasks/<int:pk>/update/', views.UpdateTaskView.as_view(), name='change_task'),
-    path('tasks/<int:pk>/delete/', views.DeleteStatusView.as_view(), name='delete_task'),
-    path('tasks/<int:pk>', views.StatusesListView.as_view(), name='task'),
+    path('tasks/<int:pk>/delete/', views.DeleteTaskView.as_view(), name='delete_task'),
+    path('task/<int:pk>', views.TaskView.as_view(), name='task'),
 ]
