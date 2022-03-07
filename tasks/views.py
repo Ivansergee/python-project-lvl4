@@ -178,6 +178,10 @@ class CreateTaskView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = TaskCreationForm
     success_message = _('Задание успешно создано')
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
     def handle_no_permission(self):
         messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
         return redirect('login')
@@ -185,10 +189,10 @@ class CreateTaskView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
 class UpdateTaskView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Task
-    success_url = reverse_lazy('labels_list')
-    template_name = 'tasks/labels/update_label.html'
+    success_url = reverse_lazy('tasks_list')
+    template_name = 'tasks/tasks/update_task.html'
     form_class = TaskCreationForm
-    success_message = _('Метка успешно изменена')
+    success_message = _('Задание успешно изменено')
     
     def handle_no_permission(self):
         messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
@@ -197,9 +201,9 @@ class UpdateTaskView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 class DeleteTaskView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Task
-    success_url = reverse_lazy('labels_list')
-    template_name = 'tasks/labels/delete_label.html'
-    success_message = _('Метка успешно удалена')
+    success_url = reverse_lazy('tasks_list')
+    template_name = 'tasks/tasks/delete_task.html'
+    success_message = _('Задание успешно удалено')
     
     def handle_no_permission(self):
         messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
