@@ -5,10 +5,10 @@ from django.utils.translation import gettext_lazy as _
 
 class User(AbstractUser):
     created_at = models.DateTimeField(_('Дата создания'), auto_now_add=True)
-
+    
+    
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
-
+        return self.first_name + ' ' + self.last_name
 
     class Meta:
         db_table = 'auth_user'

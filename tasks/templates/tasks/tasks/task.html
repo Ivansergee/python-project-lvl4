@@ -4,30 +4,51 @@
 
 {% block content %}
 {% bootstrap_messages %}
-<h1>{% translate 'Метки' %}</h1>
-<a class="nav-link" href="{% url 'create_label' %}">{% translate 'Создать метку' %}</a>
-<table class="table table-striped">
-    <thead>
-      <tr>
-        <th>{% translate 'ID' %}</th>
-        <th>{% translate 'Имя'%}</th>
-        <th>{% translate 'Дата создания'%}</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for label in labels %}
-        <tr>
-          <td>{{ label.pk }}</td>
-          <td>{{ label.name }}</td>
-          <td>{{ label.created_at }}</td>
-          <td>
-            <a href="{% url 'change_label' label.pk %}">{% translate 'Изменить' %}</a>
-            <br>
-            <a href="{% url 'delete_label' label.pk %}">{% translate 'Удалить' %}</a>
-          </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-  </table>
+<h1>{% translate 'Просмотр задачи' %}</h1>
+<div class="card">
+  <div class="card-header bg-secondary text-white">
+    <h2>{{ task.name }}</h2>
+  </div>
+  <div class="card-body bg-light">
+    <p>{{ task.description }}</p>
+    <hr>
+    <div class="container">
+      <div class="row p-1">
+        <div class="col">{% translate 'Автор' %}</div>
+        <div class="col">{{ task.author }}</div>
+      </div>
+      <div class="row p-1">
+        <div class="col">{% translate 'Исполнитель' %}</div>
+        <div class="col">{{ task.executor }}</div>
+      </div>
+      <div class="row p-1">
+        <div class="col">{% translate 'Статус' %}</div>
+        <div class="col">{{ task.status }}</div>
+      </div>
+      <div class="row p-1">
+        <div class="col">{% translate 'Дата создания' %}</div>
+        <div class="col">{{ task.created_at }}</div>
+      </div>
+      <div class="row p-1">
+        <div class="col">
+          <h6>{% translate 'Метки:' %}</h6>
+          {% for tag in task.tags.all %}
+          <ul>
+            
+              <li>{{ tag }}</li>
+            
+          </ul>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="row p-1">
+        <div class="col">
+          <a href="{% url 'change_task' task.pk %}">{% translate 'Изменить' %}</a>
+          <br>
+          <a href="{% url 'delete_task' task.pk %}">{% translate 'Удалить' %}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
