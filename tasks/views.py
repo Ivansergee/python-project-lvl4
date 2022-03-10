@@ -168,6 +168,13 @@ class DeleteLabelView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     def handle_no_permission(self):
         messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
         return redirect('login')
+    
+    def form_valid(self, form):
+        try:
+            return super().form_valid(form)
+        except ProtectedError:
+            messages.error(self.request, _('Метка используется в задаче, удаление невозможно.'))
+            return redirect('labels_list')
 
 
 class TasksListView(LoginRequiredMixin, ListView):
@@ -217,7 +224,7 @@ class DeleteTaskView(AccessMixin, SuccessMessageMixin, DeleteView):
         if not request.user.is_authenticated:
             messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
             return redirect('login')
-        if not request.user.pk == self.get_object().pk:
+        if not request.user.pk == self.get_object().author.pk:
             messages.error(self.request, _('Удалить задачу может только её автор.'))
             return redirect('tasks_list')
         return super().dispatch(request, *args, **kwargs)
