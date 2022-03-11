@@ -6,6 +6,14 @@
 {% bootstrap_messages %}
 <h1>{% translate 'Задачи' %}</h1>
 <a class="nav-link" href="{% url 'create_task' %}">Создать задачу</a>
+<form method="get">
+  {% bootstrap_form filter.form %}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      {% translate "Показать" %}
+    </button>
+  {% endbuttons %}
+</form>
   <table class="table table-striped">
     <thead>
       <tr>

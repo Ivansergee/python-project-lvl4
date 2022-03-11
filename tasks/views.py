@@ -1,3 +1,4 @@
+from re import T
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.db.models import ProtectedError
@@ -10,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 
 from .models import User, Status, Label, Task
 from .forms import UserRegisterForm, StatusCreationForm, LabelCreationForm, TaskCreationForm
+from .filters import TaskFilter
 
 
 class IndexView(TemplateView):
@@ -185,6 +187,13 @@ class TasksListView(LoginRequiredMixin, ListView):
     def handle_no_permission(self):
         messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
         return redirect('login')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        qs = self.model.objects.all()
+        task_filter = TaskFilter(self.request.GET, queryset=qs)
+        context['filter'] = task_filter
+        return context
 
 
 class CreateTaskView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
