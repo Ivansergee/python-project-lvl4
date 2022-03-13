@@ -2,18 +2,30 @@
 {% load i18n %}
 {% load bootstrap4 %}
 
+{% block style %}
+<style type="text/css">
+  .form-inline > *{
+  margin: 0px 5px;
+  }
+  label {
+    margin: 0px 5px;
+  }
+</style>
+{% endblock  %}
 {% block content %}
 {% bootstrap_messages %}
 <h1>{% translate 'Задачи' %}</h1>
 <a class="nav-link" href="{% url 'create_task' %}">Создать задачу</a>
-<form method="get">
-  {% bootstrap_form filter.form %}
-  {% buttons %}
-    <button type="submit" class="btn btn-primary">
-      {% translate "Показать" %}
-    </button>
-  {% endbuttons %}
-</form>
+<div class="card-body bg-light">
+  <form method="get" class='form form-inline justify-content-around'>
+    {% bootstrap_form filter.form bound_css_class='' %}
+    {% buttons %}
+      <button type="submit" class="btn btn-primary">
+        {% translate "Показать" %}
+      </button>
+    {% endbuttons %}
+  </form>
+</div>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -27,7 +39,7 @@
       </tr>
     </thead>
     <tbody>
-        {% for task in tasks %}
+        {% for task in filter.qs %}
         <tr>
           <td>{{ task.pk }}</td>
           <td>

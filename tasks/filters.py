@@ -1,19 +1,35 @@
-from dataclasses import fields
 from django.utils.translation import gettext_lazy as _
-from django import forms
+from django.forms import CheckboxInput
 
 import django_filters
-from django_filters import widgets
-from .models import Task
+from .models import Task, Label
 
 
 class TaskFilter(django_filters.FilterSet):
-    self_tasks = django_filters.BooleanFilter(label=_('Только свои задачи'), widget=forms.BooleanField())
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+
+
+    tags = django_filters.ModelChoiceFilter(label=_('Метки'), queryset=Label.objects.all())
+    self_tasks = django_filters.BooleanFilter(
+        label=_('Только свои задачи'),
+        field_name='author',
+        widget=CheckboxInput,
+        method='filter_self_tasks'
+        )
 
     class Meta:
         model = Task
         fields = [
             'status',
             'executor',
-            'tags'
         ]
+    
+    def filter_self_tasks(self, queryset, name, value):
+        if value is True:
+            user = self.user.pk
+            qs = queryset.filter(author=user)
+            return qs
+        return queryset

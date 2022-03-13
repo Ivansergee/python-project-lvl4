@@ -190,9 +190,7 @@ class TasksListView(LoginRequiredMixin, ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        qs = self.model.objects.all()
-        task_filter = TaskFilter(self.request.GET, queryset=qs)
-        context['filter'] = task_filter
+        context['filter'] = TaskFilter(self.request.GET, user=self.request.user, queryset=self.get_queryset())
         return context
 
 
