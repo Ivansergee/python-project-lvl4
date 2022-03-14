@@ -9,9 +9,7 @@
     {% csrf_token %}
     {% bootstrap_form form %}
     {% buttons %}
-      <button type="submit" class="btn btn-primary">
-        {% translate "Войти" %}
-      </button>
+    <input class="btn btn-primary" type="submit" value={% translate "Войти" %}>
     {% endbuttons %}
 </form>
 {% endblock %}
