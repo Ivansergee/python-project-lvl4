@@ -12,12 +12,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
-# import dj_database_url
+import dj_database_url
 from dotenv import load_dotenv
 
 load_dotenv()
-# db_from_env = dj_database_url.config()
-# DATABASE['default'].update(db_from_env)
+db_config = dj_database_url.config(default=os.getenv('DATABASE_URL'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -59,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
 ROOT_URLCONF = 'task_manager.urls'
@@ -85,13 +85,16 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
+DATABASES = {
+    'default': db_config,
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -112,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -120,6 +123,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'translations', 'locale'),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -150,3 +156,11 @@ LOGGING = {
         'level': 'DEBUG',
     },
 }
+
+ROLLBAR = {
+    'access_token': '813c5848bbc2437ea33459568d9b3427',
+    'environment': 'development' if DEBUG else 'production',
+    'root': BASE_DIR,
+}
+import rollbar
+rollbar.init(**ROLLBAR)

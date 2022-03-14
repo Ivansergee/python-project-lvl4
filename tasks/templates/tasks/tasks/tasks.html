@@ -15,7 +15,7 @@
 {% block content %}
 {% bootstrap_messages %}
 <h1>{% translate 'Задачи' %}</h1>
-<a class="nav-link" href="{% url 'create_task' %}">Создать задачу</a>
+<a class="nav-link" href="{% url 'create_task' %}">{% translate 'Создать задачу' %}</a>
 <div class="card-body bg-light">
   <form method="get" class='form form-inline justify-content-around'>
     {% bootstrap_form filter.form bound_css_class='' %}
@@ -50,9 +50,9 @@
           <td>{{ task.executor }}</td>
           <td>{{ task.created_at }}</td>
           <td>
-            <a href="{% url 'change_task' task.pk %}">Изменить</a>
+            <a href="{% url 'change_task' task.pk %}">{% translate 'Изменить' %}</a>
             <br>
-            <a href="{% url 'delete_task' task.pk %}">Удалить</a>
+            <a href="{% url 'delete_task' task.pk %}">{% translate 'Удалить' %}</a>
           </td>
         </tr>
         {% endfor %}
