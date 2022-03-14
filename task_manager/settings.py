@@ -158,7 +158,7 @@ LOGGING = {
 }
 
 ROLLBAR = {
-    'access_token': '813c5848bbc2437ea33459568d9b3427',
+    'access_token': os.getenv(ROOLLBAR_TOKEN),
     'environment': 'development' if DEBUG else 'production',
     'root': BASE_DIR,
 }
