@@ -157,6 +157,8 @@ LOGGING = {
     },
 }
 
+CSRF_TRUSTED_ORIGINS = ['http://webserver:9000/',]
+
 ROLLBAR = {
     'access_token': os.getenv('ROOLLBAR_TOKEN'),
     'environment': 'development' if DEBUG else 'production',
