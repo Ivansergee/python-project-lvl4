@@ -33,7 +33,6 @@ DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -47,9 +46,11 @@ INSTALLED_APPS = [
     'task_manager',
     'tasks',
     'django_filters',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -60,6 +61,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
+
+CSRF_TRUSTED_ORIGINS = ['http://webserver']
 
 ROOT_URLCONF = 'task_manager.urls'
 
@@ -156,8 +159,6 @@ LOGGING = {
         'level': 'DEBUG',
     },
 }
-
-CSRF_TRUSTED_ORIGINS = ['http://webserver:9000',]
 
 ROLLBAR = {
     'access_token': os.getenv('ROOLLBAR_TOKEN'),
