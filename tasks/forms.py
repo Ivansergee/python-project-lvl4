@@ -8,12 +8,9 @@ class UserRegisterForm(UserCreationForm):
     first_name = forms.CharField(label=_('Имя'))
     last_name = forms.CharField(label=_('Фамилия'))
 
-
     def __init__(self, *args, **kwargs):
         super(UserRegisterForm, self).__init__(*args, **kwargs)
         self.fields['password1'].help_text = _('<ul><li>Ваш пароль должен содержать как минимум 3 символа.</li></ul>')
-
-
 
     class Meta:
         model = User
@@ -45,6 +42,4 @@ class TaskCreationForm(forms.ModelForm):
             'status',
             'executor',
             'labels',
-            )
-
-
+        )

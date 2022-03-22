@@ -11,14 +11,13 @@ class TaskFilter(django_filters.FilterSet):
         self.user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
 
-
     labels = django_filters.ModelChoiceFilter(label=_('Метка'), queryset=Label.objects.all())
     self_tasks = django_filters.BooleanFilter(
         label=_('Только свои задачи'),
         field_name='author',
         widget=CheckboxInput,
         method='filter_self_tasks'
-        )
+    )
 
     class Meta:
         model = Task
@@ -26,7 +25,7 @@ class TaskFilter(django_filters.FilterSet):
             'status',
             'executor',
         ]
-    
+
     def filter_self_tasks(self, queryset, name, value):
         if value is True:
             user = self.user.pk

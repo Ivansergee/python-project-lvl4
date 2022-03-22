@@ -1,4 +1,3 @@
-from re import T
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.db.models import ProtectedError
@@ -36,7 +35,7 @@ class UpdateUserView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
 
     def test_func(self):
         return self.request.user.pk == self.get_object().pk
-    
+
     def handle_no_permission(self):
         messages.error(self.request, _('У вас нет прав для изменения другого пользователя.'))
         return redirect('users_list')
@@ -52,11 +51,11 @@ class DeleteUserView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
 
     def test_func(self):
         return self.request.user.pk == self.get_object().pk
-    
+
     def handle_no_permission(self):
         messages.error(self.request, _('У вас нет прав для изменения другого пользователя.'))
         return redirect('users_list')
-    
+
     def form_valid(self, form):
         try:
             return super().form_valid(form)
@@ -66,12 +65,12 @@ class DeleteUserView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
 
 
 class LoginUserView(SuccessMessageMixin, LoginView):
-    template_name='tasks/users/login.html'
+    template_name = 'tasks/users/login.html'
     success_message = _('Вы залогинены')
 
 
 class LogoutUserView(LogoutView):
-    
+
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
         messages.add_message(request, messages.INFO, _('Вы разлогинены'))
@@ -111,7 +110,7 @@ class UpdateStatusView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'tasks/statuses/update_status.html'
     form_class = StatusCreationForm
     success_message = _('Статус успешно изменён')
-    
+
     def handle_no_permission(self):
         messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
         return redirect('login')
@@ -122,7 +121,7 @@ class DeleteStatusView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     success_url = reverse_lazy('statuses_list')
     template_name = 'tasks/statuses/delete_status.html'
     success_message = _('Статус успешно удалён')
-    
+
     def handle_no_permission(self):
         messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
         return redirect('login')
@@ -155,7 +154,7 @@ class UpdateLabelView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'tasks/labels/update_label.html'
     form_class = LabelCreationForm
     success_message = _('Метка успешно изменена')
-    
+
     def handle_no_permission(self):
         messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
         return redirect('login')
@@ -166,11 +165,11 @@ class DeleteLabelView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     success_url = reverse_lazy('labels_list')
     template_name = 'tasks/labels/delete_label.html'
     success_message = _('Метка успешно удалена')
-    
+
     def handle_no_permission(self):
         messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
         return redirect('login')
-    
+
     def form_valid(self, form):
         try:
             return super().form_valid(form)
@@ -187,7 +186,7 @@ class TasksListView(LoginRequiredMixin, ListView):
     def handle_no_permission(self):
         messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
         return redirect('login')
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filter'] = TaskFilter(self.request.GET, user=self.request.user, queryset=self.get_queryset())
@@ -215,7 +214,7 @@ class UpdateTaskView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'tasks/tasks/update_task.html'
     form_class = TaskCreationForm
     success_message = _('Задача успешно изменена')
-    
+
     def handle_no_permission(self):
         messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
         return redirect('login')
