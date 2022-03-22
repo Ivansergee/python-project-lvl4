@@ -121,7 +121,7 @@ class DeleteStatusView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Status
     success_url = reverse_lazy('statuses_list')
     template_name = 'tasks/statuses/delete_status.html'
-    success_message = _('Статус успешно удален')
+    success_message = _('Статус успешно удалён')
     
     def handle_no_permission(self):
         messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
