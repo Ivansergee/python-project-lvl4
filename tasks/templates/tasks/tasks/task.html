@@ -32,7 +32,7 @@
       <div class="row p-1">
         <div class="col">
           <h6>{% translate 'Метки:' %}</h6>
-          {% for tag in task.tags.all %}
+          {% for tag in task.labels.all %}
           <ul>
             
               <li>{{ tag }}</li>
