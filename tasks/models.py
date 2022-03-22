@@ -56,7 +56,7 @@ class Task(models.Model):
         through_fields=('task', 'label'),
         verbose_name=_('Метки'),
         blank=True
-        )
+    )
     created_at = models.DateTimeField(_('Дата создания'), auto_now_add=True)
 
     def __str__(self):

@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import dj_database_url
 from dotenv import load_dotenv
+import rollbar
 
 load_dotenv()
 db_config = dj_database_url.config(default=os.getenv('DATABASE_URL'))
@@ -165,5 +166,5 @@ ROLLBAR = {
     'environment': 'development' if DEBUG else 'production',
     'root': BASE_DIR,
 }
-import rollbar
+
 rollbar.init(**ROLLBAR)
