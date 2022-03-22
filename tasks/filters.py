@@ -12,7 +12,7 @@ class TaskFilter(django_filters.FilterSet):
         super().__init__(*args, **kwargs)
 
 
-    tags = django_filters.ModelChoiceFilter(label=_('Метки'), queryset=Label.objects.all())
+    tags = django_filters.ModelChoiceFilter(label=_('Метка'), queryset=Label.objects.all())
     self_tasks = django_filters.BooleanFilter(
         label=_('Только свои задачи'),
         field_name='author',
