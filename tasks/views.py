@@ -110,7 +110,7 @@ class UpdateStatusView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_url = reverse_lazy('statuses_list')
     template_name = 'tasks/statuses/update_status.html'
     form_class = StatusCreationForm
-    success_message = _('Статус успешно изменен')
+    success_message = _('Статус успешно изменён')
     
     def handle_no_permission(self):
         messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
