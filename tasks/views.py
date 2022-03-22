@@ -214,7 +214,7 @@ class UpdateTaskView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_url = reverse_lazy('tasks_list')
     template_name = 'tasks/tasks/update_task.html'
     form_class = TaskCreationForm
-    success_message = _('Задание успешно изменено')
+    success_message = _('Задача успешно изменена')
     
     def handle_no_permission(self):
         messages.error(self.request, _('Выполните вход для просмотра данной страницы'))
@@ -225,7 +225,7 @@ class DeleteTaskView(AccessMixin, SuccessMessageMixin, DeleteView):
     model = Task
     success_url = reverse_lazy('tasks_list')
     template_name = 'tasks/tasks/delete_task.html'
-    success_message = _('Задание успешно удалено')
+    success_message = _('Задача успешно удалена')
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
