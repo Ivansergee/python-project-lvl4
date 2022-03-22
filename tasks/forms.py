@@ -44,7 +44,7 @@ class TaskCreationForm(forms.ModelForm):
             'description',
             'status',
             'executor',
-            'tags',
+            'labels',
             )
 
 
