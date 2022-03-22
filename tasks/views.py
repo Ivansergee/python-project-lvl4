@@ -3,7 +3,8 @@ from django.shortcuts import redirect
 from django.db.models import ProtectedError
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, AccessMixin
-from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, ListView, DetailView
+from django.views.generic import TemplateView,  ListView, DetailView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import gettext_lazy as _
@@ -60,7 +61,9 @@ class DeleteUserView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
         try:
             return super().form_valid(form)
         except ProtectedError:
-            messages.error(self.request, _('Невозможно удалить пользователя, связанного с существующими задачами.'))
+            messages.error(self.request, _(
+                'Невозможно удалить пользователя, связанного с существующими задачами.'
+            ))
             return redirect('users_list')
 
 
@@ -189,7 +192,11 @@ class TasksListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['filter'] = TaskFilter(self.request.GET, user=self.request.user, queryset=self.get_queryset())
+        context['filter'] = TaskFilter(
+            self.request.GET,
+            user=self.request.user,
+            queryset=self.get_queryset()
+        )
         return context
 
 

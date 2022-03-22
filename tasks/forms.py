@@ -10,7 +10,9 @@ class UserRegisterForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super(UserRegisterForm, self).__init__(*args, **kwargs)
-        self.fields['password1'].help_text = _('<ul><li>Ваш пароль должен содержать как минимум 3 символа.</li></ul>')
+        self.fields['password1'].help_text = _(
+            '<ul><li>Ваш пароль должен содержать как минимум 3 символа.</li></ul>'
+        )
 
     class Meta:
         model = User
