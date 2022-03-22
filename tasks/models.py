@@ -34,10 +34,10 @@ class Label(models.Model):
 class Task(models.Model):
     name = models.CharField(_('Имя'), max_length=150, unique=True)
     description = models.TextField(_('Описание'))
-    status = models.ForeignKey(Status, on_delete=models.PROTECT, related_name='statuses')
-    author = models.ForeignKey(User, on_delete=models.PROTECT, related_name='authors')
-    executor = models.ForeignKey(User, on_delete=models.PROTECT, related_name='executors')
-    tags = models.ManyToManyField(Label, through='LabelTask', through_fields=('task', 'label'))
+    status = models.ForeignKey(Status, on_delete=models.PROTECT, verbose_name=_('Статус'), related_name='statuses')
+    author = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name=_('Автор'), related_name='authors')
+    executor = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name=_('Исполнитель'), related_name='executors')
+    tags = models.ManyToManyField(Label, through='LabelTask', through_fields=('task', 'label'), verbose_name=_('Метки'),)
     created_at = models.DateTimeField(_('Дата создания'), auto_now_add=True)
 
     def __str__(self):
